@@ -1,12 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ParkingApi.Application.Common.Interfaces;
-using ParkingApi.Domain.Constants;
 using ParkingApi.Infrastructure.Data;
-using ParkingApi.Infrastructure.Data.Interceptors;
-using ParkingApi.Infrastructure.Identity;
 
 namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
@@ -19,17 +14,12 @@ public static class DependencyInjection
 
         Guard.Against.Null(connectionString, message: "Connection string 'DefaultConnection' not found.");
 
-        services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-
         var inMemoryServiceProvider = new ServiceCollection()
             .AddEntityFrameworkInMemoryDatabase()
             .BuildServiceProvider();
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
-            options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-
             options.UseInMemoryDatabase(InMemoryDbName);
             options.UseInternalServiceProvider(inMemoryServiceProvider);
         });
@@ -38,22 +28,8 @@ public static class DependencyInjection
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
-        services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme);
-
-        services.AddAuthorizationBuilder();
-
-        services
-            .AddIdentityCore<ApplicationUser>()
-            .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddApiEndpoints();
-
+        services.AddControllers();
         services.AddSingleton(TimeProvider.System);
-        services.AddTransient<IIdentityService, IdentityService>();
-
-        services.AddAuthorization(options =>
-            options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
         return services;
     }
