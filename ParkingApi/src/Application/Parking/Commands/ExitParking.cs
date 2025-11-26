@@ -27,11 +27,8 @@ public class ExitParkingCommandHandler : IRequestHandler<ExitParkingCommand, Exi
 
         var result = parking.RemoveVehicleFromSpace(request.VehicleReg!);
 
-        if (result.ParkingSpace is null)
-            throw new VehicleNotFoundInParkingException(request.VehicleReg!);
-
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ExitParkingResult(result.ParkingSpace.LicensePlate?.Value, result.Charge, result.ParkingSpace.TimeIn!.Value, result.TimeOut);
+        return new ExitParkingResult(request.VehicleReg, result.Charge, result.TimeIn, result.TimeOut);
     }
 }
