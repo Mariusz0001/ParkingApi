@@ -6,6 +6,38 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/Parking": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "operationId": "Add",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ParkingCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ParkingResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/TodoItems": {
       "get": {
         "tags": [
@@ -757,6 +789,34 @@
   },
   "components": {
     "schemas": {
+      "ParkingResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "vehicleType": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vehicleReg": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ParkingCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "vehicleReg": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleType": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
         "additionalProperties": false,
