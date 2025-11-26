@@ -106,7 +106,7 @@ public class ApplicationDbContextInitialiser
 
         if (!_context.Parkings.Any())
         {
-            _context.Parkings.Add(new Parking());
+            _context.Parkings.Add(new Parking(1000));
 
             await _context.SaveChangesAsync();
         }

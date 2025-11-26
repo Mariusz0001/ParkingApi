@@ -793,13 +793,16 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "vehicleType": {
-            "type": "integer",
-            "format": "int32"
-          },
           "vehicleReg": {
             "type": "string",
             "nullable": true
+          },
+          "spaceNumber": {
+            "type": "string"
+          },
+          "timeIn": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },

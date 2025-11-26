@@ -4,24 +4,28 @@ public class Parking
     public Guid Id { get; private set; }
 
     private readonly List<ParkingSpace> _parkingSpaces = new();
-    private readonly int _numberOfSpaces = 1000;
 
     public IReadOnlyCollection<ParkingSpace> ParkingSpaces => _parkingSpaces.AsReadOnly();
 
-    public Parking()
+    //for ef-core
+    protected Parking()
+    {
+    }
+
+    public Parking(int numberOfSpaces)
     {
         Id = Guid.NewGuid();
 
-        if (_numberOfSpaces <= 0)
+        if (numberOfSpaces <= 0)
             throw new ArgumentException("A parking facility must have spaces.");
 
-        for (int i = 1; i <= _numberOfSpaces; i++)
+        for (int i = 1; i <= numberOfSpaces; i++)
         {
             _parkingSpaces.Add(new ParkingSpace(Guid.NewGuid(), $"{i}"));
         }
     }
 
-    public void AssignVehicleToSpace(string? licensePlate, int vehType)
+    public ParkingSpace AssignVehicleToSpace(string? licensePlate, int vehType)
     {
         var availableSpace = _parkingSpaces.FirstOrDefault(s => !s.IsOccupied);
 
@@ -32,6 +36,8 @@ public class Parking
             throw new ArgumentNullException(nameof(licensePlate), "License plate cannot be null.");
 
         availableSpace.Occupy(new LicensePlate(licensePlate), vehType);
+
+        return availableSpace;
     }
 
     /*   public void RemoveVehicleFromSpace(string licensePlate)

@@ -8,7 +8,7 @@ public record ParkingCommand : IRequest<ParkingResult>
     public int VehicleType { get; init; }
 }
 
-public record ParkingResult(int VehicleType, string? VehicleReg);
+public record ParkingResult(string? VehicleReg, string SpaceNumber, DateTime TimeIn);
 
 public class ParkingCommandHandler : IRequestHandler<ParkingCommand, ParkingResult>
 {
@@ -23,10 +23,10 @@ public class ParkingCommandHandler : IRequestHandler<ParkingCommand, ParkingResu
     {
         var parking = await _context.Parkings.FirstOrDefaultAsync(cancellationToken: cancellationToken) ?? throw new MainParkingNotFoundException();
 
-        parking.AssignVehicleToSpace(request.VehicleReg, request.VehicleType);
+        var availableSpace = parking.AssignVehicleToSpace(request.VehicleReg, request.VehicleType);
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ParkingResult(request.VehicleType, request.VehicleReg);
+        return new ParkingResult(availableSpace.LicensePlate.Value, availableSpace.SpaceNumber, availableSpace.TimeIn);
     }
 }
