@@ -39,7 +39,7 @@ public class Parking
         if (string.IsNullOrWhiteSpace(licensePlate))
             throw new ArgumentNullException(nameof(licensePlate), "License plate cannot be null.");
 
-        availableSpace.Occupy(new LicensePlate(licensePlate), vehType);
+        availableSpace.Occupy(new LicensePlate(licensePlate), vehType, DateTime.UtcNow);
 
         OccupiedSpaces++;
         AvailableSpaces--;

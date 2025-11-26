@@ -16,16 +16,15 @@ public class ParkingSpace
     // Protected constructor for EF Core/persistence
     protected ParkingSpace() { }
 
-    internal ParkingSpace(Guid id, Guid parkingId, int spaceNumber)
+    public ParkingSpace(Guid id, Guid parkingId, int spaceNumber)
     {
         Id = id;
         ParkingId = parkingId;
         SpaceNumber = spaceNumber;
         IsOccupied = false;
-        TimeIn = DateTime.UtcNow;
     }
 
-    internal void Occupy(LicensePlate licensePlate, int vehicleType)
+    public void Occupy(LicensePlate licensePlate, int vehicleType, DateTime? timeIn)
     {
         if (IsOccupied)
         {
@@ -36,7 +35,7 @@ public class ParkingSpace
         VehicleType = vehicleType;
         LicensePlate = licensePlate;
         SpaceNumber = SpaceNumber;
-        TimeIn = DateTime.UtcNow;
+        TimeIn = timeIn ?? DateTime.UtcNow;
     }
 
     internal void Vacate()
@@ -53,16 +52,28 @@ public class ParkingSpace
         TimeIn = null;
     }
 
-    internal double ChargeVehicle(DateTime TimeOut)
+    public double ChargeVehicle(DateTime TimeOut)
     {
+        if (!IsOccupied)
+            throw new InvalidOperationException("Parking space is not occupied.");
+
         if (!VehicleType.HasValue)
             throw new InvalidOperationException("Vehicle type is not set.");
+
+        if (TimeIn > TimeOut)
+            throw new ArgumentException("TimeOut cannot be earlier than TimeIn.");
 
         var chargeRates = new ParkingChargeRates();
         var duration = TimeOut - (TimeIn ?? DateTime.UtcNow);
 
         double ratePerMin = chargeRates.GetRate((VehicleType)VehicleType!.Value);
+        double ratePer5Min = duration.Minutes / 5;
 
-        return ratePerMin * duration.Minutes;
+        int fiveMinuteIntervals = (int)Math.Floor(duration.Minutes / 5m);
+        double additionalCharge = fiveMinuteIntervals * 1.0;
+
+        var result = (ratePerMin * duration.Minutes) + additionalCharge;
+
+        return result;
     }
 }

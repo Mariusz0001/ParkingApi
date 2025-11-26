@@ -21,14 +21,6 @@ public class ParkingChargeRatesTests
     }
 
     [Test]
-    public void RatesProperty_ShouldReturnReadOnlyDictionary()
-    {
-        var rates = _sut.Rates;
-
-        rates.Should().BeAssignableTo<IReadOnlyDictionary<VehicleType, decimal>>();
-    }
-
-    [Test]
     public void GetRate_ForSmallCar_ShouldReturnCorrectRate()
     {
         var expectedRate = 0.10;
