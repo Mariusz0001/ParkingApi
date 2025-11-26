@@ -16,5 +16,8 @@ public class ParkingSpaceConfiguration : IEntityTypeConfiguration<ParkingSpace>
             .IsRequired();
 
         builder.OwnsOne(ps => ps.LicensePlate);
+
+        builder.HasOne(ps => ps.Parking);
+
     }
 }

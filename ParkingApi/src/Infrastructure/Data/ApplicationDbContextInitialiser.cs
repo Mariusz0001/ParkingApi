@@ -24,6 +24,7 @@ public static class InitialiserExtensions
 
 public class ApplicationDbContextInitialiser
 {
+    private const int _parkingPlaces = 1000;
     private readonly ILogger<ApplicationDbContextInitialiser> _logger;
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
@@ -106,7 +107,9 @@ public class ApplicationDbContextInitialiser
 
         if (!_context.Parkings.Any())
         {
-            _context.Parkings.Add(new Parking(1000));
+            var mainParking = new Parking(_parkingPlaces);
+
+            _context.Parkings.Add(mainParking);
 
             await _context.SaveChangesAsync();
         }

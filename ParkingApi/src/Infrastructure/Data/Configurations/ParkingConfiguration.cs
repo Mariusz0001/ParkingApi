@@ -10,7 +10,15 @@ public class ParkingConfiguration : IEntityTypeConfiguration<Domain.Aggregates.P
             .HasMaxLength(200)
             .IsRequired();
 
-        builder
-            .HasMany(b => b.ParkingSpaces);
+        builder.HasMany(p => p.ParkingSpaces)
+                .WithOne(ps => ps.Parking)
+                .HasForeignKey(ps => ps.ParkingId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+
+        builder.Navigation(p => p.ParkingSpaces)
+            .HasField("_parkingSpaces")
+            .UsePropertyAccessMode(PropertyAccessMode.Field);
     }
 }

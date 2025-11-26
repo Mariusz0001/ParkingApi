@@ -21,16 +21,16 @@ public class Parking
 
         for (int i = 1; i <= numberOfSpaces; i++)
         {
-            _parkingSpaces.Add(new ParkingSpace(Guid.NewGuid(), $"{i}"));
+            _parkingSpaces.Add(new ParkingSpace(Guid.NewGuid(), Id, i));
         }
     }
 
     public ParkingSpace AssignVehicleToSpace(string? licensePlate, int vehType)
     {
-        var availableSpace = _parkingSpaces.FirstOrDefault(s => !s.IsOccupied);
-
-        if (availableSpace is null)
-            throw new InvalidOperationException("The parking facility is currently full.");
+        var availableSpace = _parkingSpaces
+                .Where(s => !s.IsOccupied)
+                .OrderBy(s => s.SpaceNumber)
+                .FirstOrDefault() ?? throw new InvalidOperationException("The parking facility is currently full.");
 
         if (licensePlate is null)
             throw new ArgumentNullException(nameof(licensePlate), "License plate cannot be null.");

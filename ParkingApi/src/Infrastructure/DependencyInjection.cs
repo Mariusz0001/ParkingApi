@@ -11,6 +11,8 @@ using ParkingApi.Infrastructure.Identity;
 namespace Microsoft.Extensions.DependencyInjection;
 public static class DependencyInjection
 {
+    private const string InMemoryDbName = "ParkingDb";
+
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -20,11 +22,16 @@ public static class DependencyInjection
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
+        var inMemoryServiceProvider = new ServiceCollection()
+            .AddEntityFrameworkInMemoryDatabase()
+            .BuildServiceProvider();
+
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {
             options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
 
-            options.UseInMemoryDatabase(connectionString);
+            options.UseInMemoryDatabase(InMemoryDbName);
+            options.UseInternalServiceProvider(inMemoryServiceProvider);
         });
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());

@@ -5,11 +5,8 @@ using ParkingApi.Domain.Aggregates;
 namespace ParkingApi.Domain.UnitTests.Aggregates;
 public class ParkingTests
 {
-    // Helper constants/values for testing AssignVehicleToSpace
     private const string TestLicensePlate = "ABC1234";
-    private const int TestVehicleType = 1; // Assuming 1 means standard car
-
-    // --- Constructor Tests ---
+    private const int TestVehicleType = 1;
 
     [Test]
     public void Constructor_WithValidNumberOfSpaces_ShouldCreateParkingWithCorrectSpaceCount()
@@ -39,8 +36,6 @@ public class ParkingTests
            .WithMessage("A parking facility must have spaces.*");
     }
 
-    // --- AssignVehicleToSpace Tests ---
-
     [Test]
     public void AssignVehicleToSpace_WhenSpacesAvailable_ShouldOccupyOneSpace()
     {
@@ -55,21 +50,19 @@ public class ParkingTests
         // Assert
         assignedSpace.Should().NotBeNull();
         assignedSpace.IsOccupied.Should().BeTrue();
-        parking.ParkingSpaces.Count(s => !s.IsOccupied).Should().Be(1); // One space left
+        parking.ParkingSpaces.Count(s => !s.IsOccupied).Should().Be(1);
     }
 
     [Test]
     public void AssignVehicleToSpace_WhenParkingIsFull_ShouldThrowInvalidOperationException()
     {
         // Arrange
-        var parking = new Parking(1); // Only 1 space
+        var parking = new Parking(1);
 
-        // Occupy the first space
         parking.AssignVehicleToSpace("OCCUPIED1", 1);
         parking.ParkingSpaces.First().IsOccupied.Should().BeTrue();
 
         // Act
-        // Attempt to occupy the second space (which doesn't exist/is full)
         Action act = () => parking.AssignVehicleToSpace(TestLicensePlate, TestVehicleType);
 
         // Assert
