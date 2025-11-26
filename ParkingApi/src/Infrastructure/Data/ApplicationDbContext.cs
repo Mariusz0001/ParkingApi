@@ -10,10 +10,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<TodoList> TodoLists => Set<TodoList>();
-
-    public DbSet<TodoItem> TodoItems => Set<TodoItem>();
-
     public DbSet<Domain.Aggregates.Parking> Parkings => Set<Domain.Aggregates.Parking>();
     public DbSet<ParkingSpace> ParkingPlaces => Set<ParkingSpace>();
 
