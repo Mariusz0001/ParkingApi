@@ -893,11 +893,16 @@
             "type": "string",
             "nullable": true
           },
-          "spaceNumber": {
-            "type": "integer",
-            "format": "int32"
+          "vehicleCharge": {
+            "type": "number",
+            "format": "double"
           },
           "timeIn": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "timeOut": {
             "type": "string",
             "format": "date-time"
           }
@@ -910,10 +915,6 @@
           "vehicleReg": {
             "type": "string",
             "nullable": true
-          },
-          "vehicleType": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },

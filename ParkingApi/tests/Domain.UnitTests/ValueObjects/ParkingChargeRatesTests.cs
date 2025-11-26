@@ -31,7 +31,7 @@ public class ParkingChargeRatesTests
     [Test]
     public void GetRate_ForSmallCar_ShouldReturnCorrectRate()
     {
-        var expectedRate = 0.10m;
+        var expectedRate = 0.10;
 
         var actualRate = _sut.GetRate(VehicleType.SmallCar);
 
@@ -41,7 +41,7 @@ public class ParkingChargeRatesTests
     [Test]
     public void GetRate_ForMediumCar_ShouldReturnCorrectRate()
     {
-        var expectedRate = 0.20m;
+        var expectedRate = 0.2;
 
         var actualRate = _sut.GetRate(VehicleType.MediumCar);
 
@@ -51,7 +51,7 @@ public class ParkingChargeRatesTests
     [Test]
     public void GetRate_ForLargeCar_ShouldReturnCorrectRate()
     {
-        var expectedRate = 0.40m;
+        var expectedRate = 0.40;
 
         var actualRate = _sut.GetRate(VehicleType.LargeCar);
 

@@ -32,6 +32,6 @@ public class ExitParkingCommandHandler : IRequestHandler<ExitParkingCommand, Exi
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ExitParkingResult(result.ParkingSpace.LicensePlate?.Value, result.Charge, result.ParkingSpace.TimeIn?.Value, result.TimeOut);
+        return new ExitParkingResult(result.ParkingSpace.LicensePlate?.Value, result.Charge, result.ParkingSpace.TimeIn!.Value, result.TimeOut);
     }
 }
