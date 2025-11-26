@@ -30,6 +30,8 @@ public class ParkingCommandHandler : IRequestHandler<ParkingCommand, ParkingResu
 
         await _context.SaveChangesAsync(cancellationToken);
 
-        return new ParkingResult(availableSpace.LicensePlate.Value, availableSpace.SpaceNumber, availableSpace.TimeIn);
+        return new ParkingResult(availableSpace.LicensePlate?.Value,
+                                 availableSpace.SpaceNumber,
+                                 availableSpace?.TimeIn ?? DateTime.UtcNow);
     }
 }

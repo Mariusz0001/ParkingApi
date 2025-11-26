@@ -7,9 +7,9 @@ public class ParkingSpace
     public Guid ParkingId { get; private set; }
     public int SpaceNumber { get; private set; }
     public bool IsOccupied { get; private set; }
-    public LicensePlate LicensePlate { get; private set; } = null!;
+    public LicensePlate? LicensePlate { get; private set; } = null!;
     public int? VehicleType { get; private set; }
-    public DateTime TimeIn { get; private set; }
+    public DateTime? TimeIn { get; private set; }
 
     public Parking Parking { get; private set; } = null!;
 
@@ -37,5 +37,19 @@ public class ParkingSpace
         LicensePlate = licensePlate;
         SpaceNumber = SpaceNumber;
         TimeIn = DateTime.UtcNow;
+    }
+
+    internal void Vacate()
+    {
+        if (!IsOccupied)
+        {
+            throw new InvalidOperationException("This parking space is already vacant.");
+        }
+
+        IsOccupied = false;
+
+        LicensePlate = null;
+        VehicleType = null;
+        TimeIn = null;
     }
 }

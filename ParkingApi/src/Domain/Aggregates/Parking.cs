@@ -46,14 +46,14 @@ public class Parking
 
         return availableSpace;
     }
-    /*
+
     public void RemoveVehicleFromSpace(string licensePlate)
     {
-        var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s == licensePlate);
+        var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s.LicensePlate?.Value == licensePlate);
 
         if (occupiedSpace is null)
             throw new InvalidOperationException($"Vehicle with plate {licensePlate} was not found.");
 
         occupiedSpace.Vacate();
-    }*/
+    }
 }
