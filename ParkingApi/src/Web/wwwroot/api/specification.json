@@ -11,7 +11,7 @@
         "tags": [
           "Parking"
         ],
-        "operationId": "Add",
+        "operationId": "Occupy",
         "requestBody": {
           "x-name": "command",
           "content": {
@@ -31,6 +31,24 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ParkingResult"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Parking"
+        ],
+        "operationId": "Stats",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetParkingStatsDto"
                 }
               }
             }
@@ -816,6 +834,20 @@
             "nullable": true
           },
           "vehicleType": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "GetParkingStatsDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "availableSpaces": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "occupiedSpaces": {
             "type": "integer",
             "format": "int32"
           }

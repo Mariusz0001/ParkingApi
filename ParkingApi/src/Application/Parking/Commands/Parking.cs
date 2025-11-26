@@ -1,7 +1,7 @@
 ﻿using ParkingApi.Application.Common.Exceptions;
 using ParkingApi.Application.Common.Interfaces;
 
-namespace ParkingApi.Application.Parking;
+namespace ParkingApi.Application.Parking.Commands;
 public record ParkingCommand : IRequest<ParkingResult>
 {
     public string? VehicleReg { get; init; }

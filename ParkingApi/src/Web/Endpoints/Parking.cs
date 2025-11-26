@@ -1,4 +1,5 @@
-﻿using ParkingApi.Application.Parking;
+﻿using ParkingApi.Application.Parking.Commands;
+using ParkingApi.Application.Parking.Queries;
 
 namespace ParkingApi.Web.Endpoints;
 public class Parking : EndpointGroupBase
@@ -6,17 +7,17 @@ public class Parking : EndpointGroupBase
     public override void Map(WebApplication app)
     {
         app.MapGroup(this)
-            .MapPost(Add)
-            .MapGet(Get);
+            .MapPost(Occupy)
+            .MapGet(Stats);
     }
 
-    public Task<ParkingResult> Add(ISender sender, ParkingCommand command)
+    public Task<ParkingResult> Occupy(ISender sender, ParkingCommand command)
     {
         return sender.Send(command);
     }
 
-    public Task<GetParkingResult> Get(ISender sender, GetParkingCommand command)
+    public Task<GetParkingStatsDto> Stats(ISender sender, [AsParameters] GetParkingStatsQuery query)
     {
-        return sender.Send(command);
+        return sender.Send(query);
     }
 }

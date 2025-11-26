@@ -18,6 +18,5 @@ public class ParkingSpaceConfiguration : IEntityTypeConfiguration<ParkingSpace>
         builder.OwnsOne(ps => ps.LicensePlate);
 
         builder.HasOne(ps => ps.Parking);
-
     }
 }

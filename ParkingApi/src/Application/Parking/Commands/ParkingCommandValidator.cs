@@ -1,4 +1,4 @@
-﻿namespace ParkingApi.Application.Parking;
+﻿namespace ParkingApi.Application.Parking.Commands;
 public class ParkingCommandValidator : AbstractValidator<ParkingCommand>
 {
     public ParkingCommandValidator()

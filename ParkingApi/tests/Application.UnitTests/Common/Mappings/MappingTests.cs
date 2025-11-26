@@ -4,6 +4,7 @@ using AutoMapper;
 using NUnit.Framework;
 using ParkingApi.Application.Common.Interfaces;
 using ParkingApi.Application.Common.Models;
+using ParkingApi.Application.Parking.Queries;
 using ParkingApi.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 using ParkingApi.Application.TodoLists.Queries.GetTodos;
 using ParkingApi.Domain.Entities;
@@ -34,6 +35,7 @@ public class MappingTests
     [TestCase(typeof(TodoList), typeof(LookupDto))]
     [TestCase(typeof(TodoItem), typeof(LookupDto))]
     [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
+    [TestCase(typeof(Domain.Aggregates.Parking), typeof(GetParkingStatsDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);
