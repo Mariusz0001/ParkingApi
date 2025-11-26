@@ -2,6 +2,8 @@
 public class Parking
 {
     public Guid Id { get; private set; }
+    public int AvailableSpaces { get; private set; }
+    public int OccupiedSpaces { get; private set; }
 
     private readonly List<ParkingSpace> _parkingSpaces = new();
 
@@ -15,6 +17,8 @@ public class Parking
     public Parking(int numberOfSpaces)
     {
         Id = Guid.NewGuid();
+        AvailableSpaces = numberOfSpaces;
+        OccupiedSpaces = 0;
 
         if (numberOfSpaces <= 0)
             throw new ArgumentException("A parking facility must have spaces.");
@@ -37,16 +41,19 @@ public class Parking
 
         availableSpace.Occupy(new LicensePlate(licensePlate), vehType);
 
+        OccupiedSpaces++;
+        AvailableSpaces--;
+
         return availableSpace;
     }
+    /*
+    public void RemoveVehicleFromSpace(string licensePlate)
+    {
+        var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s == licensePlate);
 
-    /*   public void RemoveVehicleFromSpace(string licensePlate)
-       {
-           var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s.OccupyingVehicleLicensePlate == licensePlate);
+        if (occupiedSpace is null)
+            throw new InvalidOperationException($"Vehicle with plate {licensePlate} was not found.");
 
-           if (occupiedSpace is null)
-               throw new InvalidOperationException($"Vehicle with plate {licensePlate} was not found.");
-
-           occupiedSpace.Vacate();
-       }*/
+        occupiedSpace.Vacate();
+    }*/
 }
