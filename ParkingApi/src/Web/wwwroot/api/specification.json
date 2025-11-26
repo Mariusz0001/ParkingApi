@@ -17,7 +17,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ParkingCommand"
+                "$ref": "#/components/schemas/OccupyParkingCommand"
               }
             }
           },
@@ -30,7 +30,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ParkingResult"
+                  "$ref": "#/components/schemas/OccupyParkingResult"
                 }
               }
             }
@@ -49,6 +49,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetParkingStatsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Parking/Exit": {
+      "post": {
+        "tags": [
+          "Parking"
+        ],
+        "operationId": "Exit",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExitParkingCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExitParkingResult"
                 }
               }
             }
@@ -807,7 +839,7 @@
   },
   "components": {
     "schemas": {
-      "ParkingResult": {
+      "OccupyParkingResult": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -825,7 +857,7 @@
           }
         }
       },
-      "ParkingCommand": {
+      "OccupyParkingCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
@@ -848,6 +880,38 @@
             "format": "int32"
           },
           "occupiedSpaces": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ExitParkingResult": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "vehicleReg": {
+            "type": "string",
+            "nullable": true
+          },
+          "spaceNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "timeIn": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "ExitParkingCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "vehicleReg": {
+            "type": "string",
+            "nullable": true
+          },
+          "vehicleType": {
             "type": "integer",
             "format": "int32"
           }

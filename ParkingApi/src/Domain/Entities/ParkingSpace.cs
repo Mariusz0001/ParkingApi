@@ -52,4 +52,17 @@ public class ParkingSpace
         VehicleType = null;
         TimeIn = null;
     }
+
+    internal double ChargeVehicle(DateTime TimeOut)
+    {
+        if (!VehicleType.HasValue)
+            throw new InvalidOperationException("Vehicle type is not set.");
+
+        var chargeRates = new ParkingChargeRates();
+        var duration = TimeOut - (TimeIn ?? DateTime.UtcNow);
+
+        double ratePerMin = chargeRates.GetRate((VehicleType)VehicleType!.Value);
+
+        return ratePerMin * duration.Minutes;
+    }
 }

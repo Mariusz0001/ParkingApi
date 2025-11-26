@@ -12,7 +12,7 @@ public class Parking : EndpointGroupBase
             .MapPost(Exit, nameof(Exit));
     }
 
-    public Task<ParkingResult> Occupy(ISender sender, OccupyParkingCommand command)
+    public Task<OccupyParkingResult> Occupy(ISender sender, OccupyParkingCommand command)
     {
         return sender.Send(command);
     }
@@ -22,8 +22,8 @@ public class Parking : EndpointGroupBase
         return sender.Send(query);
     }
 
-    public Task<GetParkingStatsDto> Exit(ISender sender, [AsParameters] GetParkingStatsQuery query)
+    public Task<ExitParkingResult> Exit(ISender sender, ExitParkingCommand command)
     {
-        return sender.Send(query);
+        return sender.Send(command);
     }
 }

@@ -4,20 +4,20 @@ namespace ParkingApi.Domain.ValueObjects;
 
 public class ParkingChargeRates
 {
-    private readonly Dictionary<VehicleType, decimal> _rates = new Dictionary<VehicleType, decimal>
+    private readonly Dictionary<VehicleType, double> _rates = new Dictionary<VehicleType, double>
         {
-            { VehicleType.SmallCar, 0.10m },
-            { VehicleType.MediumCar, 0.20m },
-            { VehicleType.LargeCar, 0.40m }
+            { VehicleType.SmallCar, 0.10 },
+            { VehicleType.MediumCar, 0.20 },
+            { VehicleType.LargeCar, 0.40 }
         };
 
-    public ReadOnlyDictionary<VehicleType, decimal> Rates => new ReadOnlyDictionary<VehicleType, decimal>(_rates);
+    public ReadOnlyDictionary<VehicleType, double> Rates => new ReadOnlyDictionary<VehicleType, double>(_rates);
 
     public ParkingChargeRates() { }
 
-    public decimal GetRate(VehicleType type)
+    public double GetRate(VehicleType type)
     {
-        if (_rates.TryGetValue(type, out decimal rate))
+        if (_rates.TryGetValue(type, out double rate))
         {
             return rate;
         }

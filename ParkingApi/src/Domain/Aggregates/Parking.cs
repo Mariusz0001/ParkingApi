@@ -47,13 +47,17 @@ public class Parking
         return availableSpace;
     }
 
-    public void RemoveVehicleFromSpace(string licensePlate)
+    public (ParkingSpace ParkingSpace, double Charge, DateTime TimeOut) RemoveVehicleFromSpace(string licensePlate)
     {
+        var timeOut = DateTime.UtcNow;
         var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s.LicensePlate?.Value == licensePlate);
 
         if (occupiedSpace is null)
             throw new InvalidOperationException($"Vehicle with plate {licensePlate} was not found.");
 
+        var charge = occupiedSpace.ChargeVehicle(timeOut);
         occupiedSpace.Vacate();
+
+        return new(occupiedSpace, charge, timeOut);
     }
 }
