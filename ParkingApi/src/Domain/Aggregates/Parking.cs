@@ -36,7 +36,7 @@ public class Parking
                 .OrderBy(s => s.SpaceNumber)
                 .FirstOrDefault() ?? throw new InvalidOperationException("The parking facility is currently full.");
 
-        if (licensePlate is null)
+        if (string.IsNullOrWhiteSpace(licensePlate))
             throw new ArgumentNullException(nameof(licensePlate), "License plate cannot be null.");
 
         availableSpace.Occupy(new LicensePlate(licensePlate), vehType);

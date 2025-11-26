@@ -51,6 +51,8 @@ public class ParkingTests
         assignedSpace.Should().NotBeNull();
         assignedSpace.IsOccupied.Should().BeTrue();
         parking.ParkingSpaces.Count(s => !s.IsOccupied).Should().Be(1);
+        parking.OccupiedSpaces.Should().Be(1);
+        parking.AvailableSpaces.Should().Be(1);
     }
 
     [Test]
