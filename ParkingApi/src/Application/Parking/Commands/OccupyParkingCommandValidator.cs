@@ -1,7 +1,7 @@
 ﻿namespace ParkingApi.Application.Parking.Commands;
-public class ParkingCommandValidator : AbstractValidator<ParkingCommand>
+public class OccupyParkingCommandValidator : AbstractValidator<OccupyParkingCommand>
 {
-    public ParkingCommandValidator()
+    public OccupyParkingCommandValidator()
     {
         RuleFor(v => v.VehicleReg)
             .NotEmpty()

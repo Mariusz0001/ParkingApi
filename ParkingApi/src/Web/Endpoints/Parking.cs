@@ -8,15 +8,21 @@ public class Parking : EndpointGroupBase
     {
         app.MapGroup(this)
             .MapPost(Occupy)
-            .MapGet(Stats);
+            .MapGet(Stats)
+            .MapPost(Exit, nameof(Exit));
     }
 
-    public Task<ParkingResult> Occupy(ISender sender, ParkingCommand command)
+    public Task<ParkingResult> Occupy(ISender sender, OccupyParkingCommand command)
     {
         return sender.Send(command);
     }
 
     public Task<GetParkingStatsDto> Stats(ISender sender, [AsParameters] GetParkingStatsQuery query)
+    {
+        return sender.Send(query);
+    }
+
+    public Task<GetParkingStatsDto> Exit(ISender sender, [AsParameters] GetParkingStatsQuery query)
     {
         return sender.Send(query);
     }
