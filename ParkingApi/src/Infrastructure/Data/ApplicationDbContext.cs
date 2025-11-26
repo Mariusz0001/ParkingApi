@@ -14,6 +14,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
 
+    public DbSet<Domain.Aggregates.Parking> Parkings => Set<Domain.Aggregates.Parking>();
+    public DbSet<ParkingSpace> ParkingPlaces => Set<ParkingSpace>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

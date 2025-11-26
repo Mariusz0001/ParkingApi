@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -200,6 +199,38 @@ public partial class InitialCreate : Migration
                     principalColumn: "Id",
                     onDelete: ReferentialAction.Cascade);
             });
+
+
+        migrationBuilder.CreateTable(
+              name: "Parkings",
+              columns: table => new
+              {
+                  Id = table.Column<int>(type: "TEXT", nullable: false)
+              },
+              constraints: table =>
+              {
+                  table.PrimaryKey("PK_Parkings", x => x.Id);
+              });
+
+        migrationBuilder.CreateTable(
+           name: "ParkingSpaces",
+           columns: table => new
+           {
+               Id = table.Column<int>(type: "TEXT", nullable: false),
+               SpaceNumber = table.Column<bool>(type: "INTEGER", nullable: false),
+               LicensePlate = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+               VehicleType = table.Column<int>(type: "INTEGER", nullable: false)
+           },
+           constraints: table =>
+           {
+               table.PrimaryKey("PK_Parkings", x => x.Id);
+               table.ForeignKey(
+                   name: "FK_Parkings_ParkingSpaces_ParkingId",
+                   column: x => x.Id,
+                   principalTable: "ParkingSpaces",
+                   principalColumn: "Id",
+                   onDelete: ReferentialAction.Cascade);
+           });
 
         migrationBuilder.CreateIndex(
             name: "IX_AspNetRoleClaims_RoleId",

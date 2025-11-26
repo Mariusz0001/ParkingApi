@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "ParkingAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "ParkingApi\src\Web\Web.csproj", "{974F5540-8BC8-4E9B-AE8A-4F9AD5F408DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.FunctionalTests", "ParkingApi\tests\Application.FunctionalTests\Application.FunctionalTests.csproj", "{5AA911A0-4579-4DC5-B646-6E51FF7144FC}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.UnitTests", "ParkingApi\tests\Application.UnitTests\Application.UnitTests.csproj", "{71E629DB-FD77-42FE-8570-A8C9D4335810}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.UnitTests", "ParkingApi\tests\Domain.UnitTests\Domain.UnitTests.csproj", "{33422888-622E-4DB2-A311-66B555315807}"
@@ -41,10 +39,6 @@ Global
 		{974F5540-8BC8-4E9B-AE8A-4F9AD5F408DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{974F5540-8BC8-4E9B-AE8A-4F9AD5F408DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{974F5540-8BC8-4E9B-AE8A-4F9AD5F408DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5AA911A0-4579-4DC5-B646-6E51FF7144FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AA911A0-4579-4DC5-B646-6E51FF7144FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AA911A0-4579-4DC5-B646-6E51FF7144FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AA911A0-4579-4DC5-B646-6E51FF7144FC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{71E629DB-FD77-42FE-8570-A8C9D4335810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{71E629DB-FD77-42FE-8570-A8C9D4335810}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71E629DB-FD77-42FE-8570-A8C9D4335810}.Release|Any CPU.ActiveCfg = Release|Any CPU

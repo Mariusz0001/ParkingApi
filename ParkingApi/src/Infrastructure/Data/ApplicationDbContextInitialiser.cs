@@ -1,9 +1,9 @@
-﻿using System.Runtime.InteropServices;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ParkingApi.Domain.Aggregates;
 using ParkingApi.Domain.Constants;
 using ParkingApi.Domain.Entities;
 using ParkingApi.Infrastructure.Identity;
@@ -101,6 +101,13 @@ public class ApplicationDbContextInitialiser
                     new TodoItem { Title = "Reward yourself with a nice, long nap 🏆" },
                 }
             });
+
+            await _context.SaveChangesAsync();
+        }
+
+        if (!_context.Parkings.Any())
+        {
+            _context.Parkings.Add(new Parking());
 
             await _context.SaveChangesAsync();
         }
