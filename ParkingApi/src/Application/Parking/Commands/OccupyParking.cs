@@ -32,6 +32,6 @@ public class OccupyParkingCommandHandler : IRequestHandler<OccupyParkingCommand,
 
         return new OccupyParkingResult(availableSpace.LicensePlate?.Value,
                                  availableSpace.SpaceNumber,
-                                 availableSpace?.TimeIn ?? DateTime.UtcNow);
+                                 availableSpace?.TimeIn ?? DateTime.Now);
     }
 }

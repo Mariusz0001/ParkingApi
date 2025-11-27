@@ -35,7 +35,7 @@ public class ParkingSpace
         VehicleType = vehicleType;
         LicensePlate = licensePlate;
         SpaceNumber = SpaceNumber;
-        TimeIn = timeIn ?? DateTime.UtcNow;
+        TimeIn = timeIn ?? DateTime.Now;
     }
 
     internal void Vacate()
@@ -64,7 +64,7 @@ public class ParkingSpace
             throw new ArgumentException("TimeOut cannot be earlier than TimeIn.");
 
         var chargeRates = new ParkingChargeRates();
-        var duration = TimeOut - (TimeIn ?? DateTime.UtcNow);
+        var duration = TimeOut - (TimeIn ?? DateTime.Now);
 
         double ratePerMin = chargeRates.GetRate((VehicleType)VehicleType!.Value);
         double ratePer5Min = duration.Minutes / 5;

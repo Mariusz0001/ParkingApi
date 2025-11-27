@@ -9,13 +9,11 @@ public class CustomExceptionHandler : IExceptionHandler
 
     public CustomExceptionHandler()
     {
-        // Register known exception types and handlers.
         _exceptionHandlers = new()
             {
                 { typeof(ValidationException), HandleValidationException },
                 { typeof(NotFoundException), HandleNotFoundException },
                 { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
-                { typeof(ForbiddenAccessException), HandleForbiddenAccessException },
             };
     }
 
@@ -69,18 +67,6 @@ public class CustomExceptionHandler : IExceptionHandler
             Status = StatusCodes.Status401Unauthorized,
             Title = "Unauthorized",
             Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
-        });
-    }
-
-    private async Task HandleForbiddenAccessException(HttpContext httpContext, Exception ex)
-    {
-        httpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-
-        await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
-        {
-            Status = StatusCodes.Status403Forbidden,
-            Title = "Forbidden",
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3"
         });
     }
 }

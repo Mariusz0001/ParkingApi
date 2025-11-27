@@ -1,58 +1,50 @@
-﻿# ParkingApi
+# Parking Api
 
-The project was generated using the [Clean.Architecture.Solution.Template](https://github.com/jasontaylordev/ParkingApi) version 8.0.6.
+Parking Api is a .NET application used to manage and allocate parking spaces for vehicles. It is responsible for calculating parking fees based on a per-minute rate.
+- The parking charges are:
+    - Small Car - £0.10/minute (1)
+    - Medium Car - £0.20/minute (2)
+    - Large Car £0.40/minute (3)
+    - Every 5 minutes an additional charge of £1 will be added
+      
+This application was created as a recruitment task for TDS.
 
-## Build
+### Endpoints
+| Type | Route | Query Params | Body | Return | Notes |
+| ---- | ----- | ------------ | ---- | ------ | ----- |
+| POST | /parking | | {VehicleReg: string, VehicleType: int} | {VehicleReg: string, SpaceNumber: int, TimeIn: DateTime} | Parks a given vehicle in the first available space and returns the vehicle and its space number |
+| GET | /parking | | | {AvailableSpaces: int, OccupiedSpaces: int} | Gets available and occupied number of spaces |
+| POST | /parking/exit | | {VehicleReg: string} | {VehicleReg: string, VehicleCharge: double TimeIn: DateTime, TimeOut: DateTime} | Should free up this vehicles space and return its final charge from its parking time until now |
 
-Run `dotnet build -tl` to build the solution.
 
-## Run
+## Tech stack:
+- .NET 8
+- Entity Framework + In Memory Database
+- Swagger
+- Automapper
+- FluentAssetions
+- nUnit
 
-To run the web application:
+## System Architecture Assumptions:
+- DDD
+- Clean Architecture
+- CQRS
 
-```bash
-cd .\src\Web\
-dotnet watch run
+
+## Getting started:
+
+Restore Dependencies
+dotnet restore
+```
+dotnet restore
 ```
 
-Navigate to https://localhost:5001. The application will automatically reload if you change any of the source files.
-
-## Code Styles & Formatting
-
-The template includes [EditorConfig](https://editorconfig.org/) support to help maintain consistent coding styles for multiple developers working on the same project across various editors and IDEs. The **.editorconfig** file defines the coding styles applicable to this solution.
-
-## Code Scaffolding
-
-The template includes support to scaffold new commands and queries.
-
-Start in the `.\src\Application\` folder.
-
-Create a new command:
-
+Build the Project
 ```
-dotnet new ca-usecase --name CreateTodoList --feature-name TodoLists --usecase-type command --return-type int
+dotnet build
 ```
 
-Create a new query:
-
+Run the Application from the project directory (where the .csproj is located):
 ```
-dotnet new ca-usecase -n GetTodos -fn TodoLists -ut query -rt TodosVm
+dotnet run
 ```
-
-If you encounter the error *"No templates or subcommands found matching: 'ca-usecase'."*, install the template and try again:
-
-```bash
-dotnet new install Clean.Architecture.Solution.Template::8.0.6
-```
-
-## Test
-
-The solution contains unit, integration, and functional tests.
-
-To run the tests:
-```bash
-dotnet test
-```
-
-## Help
-To learn more about the template go to the [project website](https://github.com/jasontaylordev/CleanArchitecture). Here you can find additional guidance, request new features, report a bug, and discuss the template with other users.

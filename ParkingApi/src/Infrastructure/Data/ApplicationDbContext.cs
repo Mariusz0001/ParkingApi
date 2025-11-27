@@ -1,12 +1,10 @@
 ﻿using System.Reflection;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ParkingApi.Application.Common.Interfaces;
 using ParkingApi.Domain.Entities;
-using ParkingApi.Infrastructure.Identity;
 
 namespace ParkingApi.Infrastructure.Data;
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public class ApplicationDbContext : DbContext, IApplicationDbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
