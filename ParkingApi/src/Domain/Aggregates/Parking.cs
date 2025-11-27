@@ -39,7 +39,7 @@ public class Parking
         if (string.IsNullOrWhiteSpace(licensePlate))
             throw new ArgumentNullException(nameof(licensePlate), "License plate cannot be null.");
 
-        availableSpace.Occupy(new LicensePlate(licensePlate), vehType, DateTime.UtcNow);
+        availableSpace.Occupy(new LicensePlate(licensePlate), vehType, DateTime.Now);
 
         OccupiedSpaces++;
         AvailableSpaces--;
@@ -49,7 +49,7 @@ public class Parking
 
     public (double Charge, DateTime? TimeIn, DateTime TimeOut) RemoveVehicleFromSpace(string licensePlate)
     {
-        var timeOut = DateTime.UtcNow;
+        var timeOut = DateTime.Now;
         var occupiedSpace = _parkingSpaces.FirstOrDefault(s => s.IsOccupied && s.LicensePlate?.Value == licensePlate);
 
         if (occupiedSpace is null)

@@ -34,7 +34,7 @@ public class ParkingSpaceTests
     {
         var space = new ParkingSpace(Guid.NewGuid(), Guid.NewGuid(), 1);
 
-        Action act = () => space.ChargeVehicle(DateTime.UtcNow);
+        Action act = () => space.ChargeVehicle(DateTime.Now);
 
         act.Should().Throw<InvalidOperationException>()
            .WithMessage("*not occupied*");
@@ -43,7 +43,7 @@ public class ParkingSpaceTests
     [Test]
     public void ChargeVehicle_WhenTimeOutIsBeforeTimeIn_ShouldThrowArgumentException()
     {
-        var timeIn = DateTime.UtcNow;
+        var timeIn = DateTime.Now;
         var timeOut = timeIn.AddMinutes(-10);
         var space = CreateOccupiedSpaceForTest(VehicleType.SmallCar, timeIn);
 
