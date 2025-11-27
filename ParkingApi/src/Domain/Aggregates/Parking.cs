@@ -60,6 +60,9 @@ public class Parking
         var charge = occupiedSpace.ChargeVehicle(timeOut);
         occupiedSpace.Vacate();
 
+        OccupiedSpaces--;
+        AvailableSpaces++;
+
         return new(charge, timeIn, timeOut);
     }
 }

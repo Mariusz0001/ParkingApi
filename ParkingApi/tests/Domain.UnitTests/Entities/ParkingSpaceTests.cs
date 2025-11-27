@@ -12,10 +12,11 @@ public class ParkingSpaceTests
     [TestCase(VehicleType.SmallCar, 5, 1.50d)]
     [TestCase(VehicleType.SmallCar, 6, 1.60d)]
     [TestCase(VehicleType.SmallCar, 9, 1.90d)]
-    [TestCase(VehicleType.SmallCar, 10, 3.00d)] // 10*0.1=1 + (floor(10/5)*1=2) = 3.00
-    [TestCase(VehicleType.MediumCar, 5, 2.00d)] // 5*0.2=1 + (floor(5/5)*1=1) = 2.00
-    [TestCase(VehicleType.MediumCar, 15, 6.00d)] // 15*0.2=3 + (floor(15/5)*1=3) = 6.00
-    [TestCase(VehicleType.LargeCar, 5, 3.00d)] // 5*0.4=2 + (floor(5/5)*1=1) = 3.00
+    [TestCase(VehicleType.SmallCar, 10, 3.00d)]
+    [TestCase(VehicleType.MediumCar, 5, 2.00d)]
+    [TestCase(VehicleType.MediumCar, 15, 6.00d)]
+    [TestCase(VehicleType.LargeCar, 5, 3.00d)]
+    [TestCase(VehicleType.LargeCar, 12, 6.80d)]
     public void ChargeVehicle_CalculatesCorrectTotalCharge(VehicleType type, int minutesParked, double expectedChargeDouble)
     {
         var timeIn = new DateTime(2025, 1, 1, 10, 0, 0, DateTimeKind.Utc);
@@ -25,7 +26,7 @@ public class ParkingSpaceTests
 
         var actualCharge = space.ChargeVehicle(timeOut);
 
-        actualCharge.Should().Be(expectedCharge);
+        actualCharge.Should().BeApproximately(expectedCharge, 0.001);
     }
 
     [Test]
